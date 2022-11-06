@@ -32,14 +32,14 @@ const rollTreatWounds = async ({ DC, bonus, med, riskysurgery, mortalhealing, tn
             const bonusString = bonus > 0 ? `+ ${bonus}` : "";
             if (roll.data.degreeOfSuccess === 3) {
                 if (tname === "Shad") {
-                    healFormula = magicHands ? `32${bonusString}/2` : `4d8${bonusString}/2`;
+                    healFormula = magicHands ? `32${bonusString}*2/3` : `4d8${bonusString}*2/3`;
                 } else {
                     healFormula = magicHands ? `32${bonusString}` : `4d8${bonusString}`;
                 }
                 successLabel = "Critical Success";
             } else if (roll.data.degreeOfSuccess === 2) {
                 if (tname === "Shad") {
-                    healFormula = magicHands ? `16${bonusString}/2` : `2d8${bonusString}/2`;
+                    healFormula = magicHands ? `16${bonusString}*2/3` : `2d8${bonusString}*2/3`;
                 } else {
                     healFormula = magicHands ? `16${bonusString}` : `2d8${bonusString}`;
                 }
@@ -197,7 +197,7 @@ if (token === undefined) {
 <label>Heal Borji</label>
 <input type="checkbox" id="borji" name="borji"></input>
 <label>Until HP</label>
-<input id="borjihhp" name="borjihhp" type="number" value="35"/>
+<input id="borjihhp" name="borjihhp" type="number" value="62"/>
 </div>
 </form>
 <form>
@@ -205,7 +205,7 @@ if (token === undefined) {
 <label>Heal Venus</label>
 <input type="checkbox" id="venus" name="venus"></input>
 <label>Until HP</label>
-<input id="venushhp" name="venushhp" type="number" value="34"/>
+<input id="venushhp" name="venushhp" type="number" value="42"/>
 </div>
 </form>
 <hr/>
@@ -214,7 +214,7 @@ if (token === undefined) {
 <label>Heal Hella</label>
 <input type="checkbox" id="hella" name="hella" checked></input>
 <label>Until HP</label>
-<input id="hellahhp" name="hellahhp" type="number" value="53"/>
+<input id="hellahhp" name="hellahhp" type="number" value="70"/>
 </div>
 </form>
 <hr/>
@@ -223,7 +223,7 @@ if (token === undefined) {
 <label>Heal Maciek</label>
 <input type="checkbox" id="maciek" name="maciek" checked></input>
 <label>Until HP</label>
-<input id="maciekhhp" name="maciekhhp" type="number" value="48"/>
+<input id="maciekhhp" name="maciekhhp" type="number" value="60"/>
 </div>
 </form>
 <hr/>
@@ -232,7 +232,7 @@ if (token === undefined) {
 <label>Heal Mizuki</label>
 <input type="checkbox" id="mizuki" name="mizuki" checked></input>
 <label>Until HP</label>
-<input id="mizukihhp" name="mizukihhp" type="number" value="41"/>
+<input id="mizukihhp" name="mizukihhp" type="number" value="55"/>
 </div>
 </form>
 <form>
@@ -240,7 +240,7 @@ if (token === undefined) {
 <label>Heal Athena</label>
 <input type="checkbox" id="athena" name="athena" checked></input>
 <label>Until HP</label>
-<input id="athenahhp" name="athenahhp" type="number" value="18"/>
+<input id="athenahhp" name="athenahhp" type="number" value="22"/>
 </div>
 </form>
 <hr/>
@@ -249,7 +249,7 @@ if (token === undefined) {
 <label>Heal Shad</label>
 <input type="checkbox" id="shad" name="shad" checked></input>
 <label>Until HP</label>
-<input id="shadhhp" name="shadhhp" type="number" value="40"/>
+<input id="shadhhp" name="shadhhp" type="number" value="52"/>
 </div>
 </form>
 <form>
@@ -257,7 +257,7 @@ if (token === undefined) {
 <label>Heal Chance</label>
 <input type="checkbox" id="chance" name="chance" checked></input>
 <label>Until HP</label>
-<input id="chancehhp" name="chancehhp" type="number" value="18"/>
+<input id="chancehhp" name="chancehhp" type="number" value="22"/>
 </div>
 </form>
 ${
