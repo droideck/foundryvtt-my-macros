@@ -1,5 +1,3 @@
-// The code is based on https://github.com/AdamantiteAdventurer/fvtt-macros-pf2e/blob/main/Treat%20Wounds%20Macro%20(Fancy).js
-
 function CheckFeat(slug) {
     if (token.actor.items.find((i) => i.data.data.slug === slug && i.type === "feat")) {
         return true;
@@ -74,8 +72,8 @@ const rollTreatWounds = async ({ DC, bonus, med, riskysurgery, mortalhealing, tn
 };
 
 async function applyChanges($html) {
-    var cList = {"Borji": false,
-                 "Venus": false,
+    var cList = {"Borji": true,
+                 "Venus": true,
                  "Hella": true,
                  "Maciek": true,
                  "Mizuki": true,
@@ -197,7 +195,7 @@ if (token === undefined) {
 <label>Heal Borji</label>
 <input type="checkbox" id="borji" name="borji"></input>
 <label>Until HP</label>
-<input id="borjihhp" name="borjihhp" type="number" value="62"/>
+<input id="borjihhp" name="borjihhp" type="number" value="70"/>
 </div>
 </form>
 <form>
@@ -205,7 +203,7 @@ if (token === undefined) {
 <label>Heal Venus</label>
 <input type="checkbox" id="venus" name="venus"></input>
 <label>Until HP</label>
-<input id="venushhp" name="venushhp" type="number" value="42"/>
+<input id="venushhp" name="venushhp" type="number" value="48"/>
 </div>
 </form>
 <hr/>
@@ -214,7 +212,7 @@ if (token === undefined) {
 <label>Heal Hella</label>
 <input type="checkbox" id="hella" name="hella" checked></input>
 <label>Until HP</label>
-<input id="hellahhp" name="hellahhp" type="number" value="70"/>
+<input id="hellahhp" name="hellahhp" type="number" value="82"/>
 </div>
 </form>
 <hr/>
@@ -223,7 +221,7 @@ if (token === undefined) {
 <label>Heal Maciek</label>
 <input type="checkbox" id="maciek" name="maciek" checked></input>
 <label>Until HP</label>
-<input id="maciekhhp" name="maciekhhp" type="number" value="60"/>
+<input id="maciekhhp" name="maciekhhp" type="number" value="70"/>
 </div>
 </form>
 <hr/>
@@ -232,7 +230,7 @@ if (token === undefined) {
 <label>Heal Mizuki</label>
 <input type="checkbox" id="mizuki" name="mizuki" checked></input>
 <label>Until HP</label>
-<input id="mizukihhp" name="mizukihhp" type="number" value="55"/>
+<input id="mizukihhp" name="mizukihhp" type="number" value="62"/>
 </div>
 </form>
 <form>
@@ -240,7 +238,7 @@ if (token === undefined) {
 <label>Heal Athena</label>
 <input type="checkbox" id="athena" name="athena" checked></input>
 <label>Until HP</label>
-<input id="athenahhp" name="athenahhp" type="number" value="22"/>
+<input id="athenahhp" name="athenahhp" type="number" value="26"/>
 </div>
 </form>
 <hr/>
@@ -249,7 +247,7 @@ if (token === undefined) {
 <label>Heal Shad</label>
 <input type="checkbox" id="shad" name="shad" checked></input>
 <label>Until HP</label>
-<input id="shadhhp" name="shadhhp" type="number" value="52"/>
+<input id="shadhhp" name="shadhhp" type="number" value="60"/>
 </div>
 </form>
 <form>
@@ -257,7 +255,7 @@ if (token === undefined) {
 <label>Heal Chance</label>
 <input type="checkbox" id="chance" name="chance" checked></input>
 <label>Until HP</label>
-<input id="chancehhp" name="chancehhp" type="number" value="22"/>
+<input id="chancehhp" name="chancehhp" type="number" value="26"/>
 </div>
 </form>
 ${
