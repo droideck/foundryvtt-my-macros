@@ -122,60 +122,60 @@ async function applyChanges($html) {
                     content: messageTable,
                 };
                 ChatMessage.create(chatData, {});
-                for (const token of canvas.tokens.controlled) {
-                    const { name } = token;
-                    if (name !== "Hella"){
-                        continue;
-                    }
-                    var med = token.actor.data.data.skills.med;
-                    if (!med) {
-                        ui.notifications.warn(`Token ${token.name} does not have the medicine skill`);
-                        continue;
-                    }
-                    const mod = parseInt($html.find('[name="modifier"]').val()) || 0;
-                    const requestedProf = parseInt($html.find('[name="dc-type"]')[0].value) || 1;
-                    // const riskysurgery = $html.find('[name="risky_surgery_bool"]')[0]?.checked;
-                    const mortalhealing = $html.find('[name="mortal_healing_bool"]')[0]?.checked;
-                    const skill = $html.find('[name="skill"]')[0]?.value;
-                    // Handle Rule Interpretation
-                    if (game.user.isGM) {
-                        await game.settings.set(
-                            "pf2e",
-                            "RAI.TreatWoundsAltSkills",
-                            $html.find('[name="strict_rules"]')[0]?.checked
-                        );
-                    }
-                    var usedProf = 0;
-                    if (game.settings.get("pf2e", "RAI.TreatWoundsAltSkills")) {
-                        if (skill === "cra") {
-                            med = token.actor.data.data.skills["cra"];
-                        }
-                        if (skill === "nat") {
-                            med = token.actor.data.data.skills["nat"];
-                        }
-                        usedProf = requestedProf <= med.rank ? requestedProf : med.rank;
-                    } else {
-                        usedProf = requestedProf <= med.rank ? requestedProf : med.rank;
-                        if (skill === "cra") {
-                            med = token.actor.data.data.skills["cra"];
-                        }
-                        if (skill === "nat") {
-                            med = token.actor.data.data.skills["nat"];
-                            if (usedProf === 0) {
-                                usedProf = 1;
-                            }
-                        }
-                    }
-                    const medicBonus = CheckFeat("medic-dedication") ? (usedProf - 1) * 5 : 0;
-                    const roll = [
-                        () => ui.notifications.warn(`${name} is not trained in Medicine and doesn't know how to treat wounds.`),
-                        () => rollTreatWounds({ DC: 15 + mod, bonus: 0 + medicBonus, med, riskysurgery, mortalhealing, tname }),
-                        () => rollTreatWounds({ DC: 20 + mod, bonus: 10 + medicBonus, med, riskysurgery, mortalhealing, tname }),
-                        () => rollTreatWounds({ DC: 30 + mod, bonus: 30 + medicBonus, med, riskysurgery, mortalhealing, tname }),
-                        () => rollTreatWounds({ DC: 40 + mod, bonus: 50 + medicBonus, med, riskysurgery, mortalhealing, tname }),
-                    ][usedProf];
-                    roll();
-                }
+                // for (const token of canvas.tokens.controlled) {
+                //     const { name } = token;
+                //     if (name !== "Hella"){
+                //         continue;
+                //     }
+                //     var med = token.actor.data.data.skills.med;
+                //     if (!med) {
+                //         ui.notifications.warn(`Token ${token.name} does not have the medicine skill`);
+                //         continue;
+                //     }
+                //     const mod = parseInt($html.find('[name="modifier"]').val()) || 0;
+                //     const requestedProf = parseInt($html.find('[name="dc-type"]')[0].value) || 1;
+                //     // const riskysurgery = $html.find('[name="risky_surgery_bool"]')[0]?.checked;
+                //     const mortalhealing = $html.find('[name="mortal_healing_bool"]')[0]?.checked;
+                //     const skill = $html.find('[name="skill"]')[0]?.value;
+                //     // Handle Rule Interpretation
+                //     if (game.user.isGM) {
+                //         await game.settings.set(
+                //             "pf2e",
+                //             "RAI.TreatWoundsAltSkills",
+                //             $html.find('[name="strict_rules"]')[0]?.checked
+                //         );
+                //     }
+                //     var usedProf = 0;
+                //     if (game.settings.get("pf2e", "RAI.TreatWoundsAltSkills")) {
+                //         if (skill === "cra") {
+                //             med = token.actor.data.data.skills["cra"];
+                //         }
+                //         if (skill === "nat") {
+                //             med = token.actor.data.data.skills["nat"];
+                //         }
+                //         usedProf = requestedProf <= med.rank ? requestedProf : med.rank;
+                //     } else {
+                //         usedProf = requestedProf <= med.rank ? requestedProf : med.rank;
+                //         if (skill === "cra") {
+                //             med = token.actor.data.data.skills["cra"];
+                //         }
+                //         if (skill === "nat") {
+                //             med = token.actor.data.data.skills["nat"];
+                //             if (usedProf === 0) {
+                //                 usedProf = 1;
+                //             }
+                //         }
+                //     }
+                //     const medicBonus = CheckFeat("medic-dedication") ? (usedProf - 1) * 5 : 0;
+                //     const roll = [
+                //         () => ui.notifications.warn(`${name} is not trained in Medicine and doesn't know how to treat wounds.`),
+                //         () => rollTreatWounds({ DC: 15 + mod, bonus: 0 + medicBonus, med, riskysurgery, mortalhealing, tname }),
+                //         () => rollTreatWounds({ DC: 20 + mod, bonus: 10 + medicBonus, med, riskysurgery, mortalhealing, tname }),
+                //         () => rollTreatWounds({ DC: 30 + mod, bonus: 30 + medicBonus, med, riskysurgery, mortalhealing, tname }),
+                //         () => rollTreatWounds({ DC: 40 + mod, bonus: 50 + medicBonus, med, riskysurgery, mortalhealing, tname }),
+                //     ][usedProf];
+                //     roll();
+                // }
             }
         }
     }
@@ -212,7 +212,7 @@ if (token === undefined) {
 <label>Heal Hella</label>
 <input type="checkbox" id="hella" name="hella" checked></input>
 <label>Until HP</label>
-<input id="hellahhp" name="hellahhp" type="number" value="82"/>
+<input id="hellahhp" name="hellahhp" type="number" value="95"/>
 </div>
 </form>
 <hr/>
@@ -221,7 +221,7 @@ if (token === undefined) {
 <label>Heal Maciek</label>
 <input type="checkbox" id="maciek" name="maciek" checked></input>
 <label>Until HP</label>
-<input id="maciekhhp" name="maciekhhp" type="number" value="70"/>
+<input id="maciekhhp" name="maciekhhp" type="number" value="85"/>
 </div>
 </form>
 <hr/>
@@ -230,7 +230,7 @@ if (token === undefined) {
 <label>Heal Mizuki</label>
 <input type="checkbox" id="mizuki" name="mizuki" checked></input>
 <label>Until HP</label>
-<input id="mizukihhp" name="mizukihhp" type="number" value="62"/>
+<input id="mizukihhp" name="mizukihhp" type="number" value="74"/>
 </div>
 </form>
 <form>
@@ -238,7 +238,7 @@ if (token === undefined) {
 <label>Heal Athena</label>
 <input type="checkbox" id="athena" name="athena" checked></input>
 <label>Until HP</label>
-<input id="athenahhp" name="athenahhp" type="number" value="26"/>
+<input id="athenahhp" name="athenahhp" type="number" value="32"/>
 </div>
 </form>
 <hr/>
@@ -247,7 +247,7 @@ if (token === undefined) {
 <label>Heal Shad</label>
 <input type="checkbox" id="shad" name="shad" checked></input>
 <label>Until HP</label>
-<input id="shadhhp" name="shadhhp" type="number" value="60"/>
+<input id="shadhhp" name="shadhhp" type="number" value="72"/>
 </div>
 </form>
 <form>
@@ -255,7 +255,7 @@ if (token === undefined) {
 <label>Heal Chance</label>
 <input type="checkbox" id="chance" name="chance" checked></input>
 <label>Until HP</label>
-<input id="chancehhp" name="chancehhp" type="number" value="26"/>
+<input id="chancehhp" name="chancehhp" type="number" value="32"/>
 </div>
 </form>
 ${
