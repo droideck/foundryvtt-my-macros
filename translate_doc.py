@@ -19,31 +19,29 @@ for encoding_type in types_of_encoding:
     with codecs.open(filename, encoding = encoding_type, errors ='replace') as f:
         xlines = f.readlines()
 
-        newxlines = []
 
-    for x in xlines:
-        res = json.loads(x)
-        try:
-            el0 = dict(res["pages"][0])
-            if el0["name"].startswith("J") or el0["name"].startswith("I") or el0["name"].startswith("H") or el0["name"].startswith("G") or el0["name"].startswith("F"):
-                content = el0["text"]["content"]
-            else:
+    with open("d:\\journal_translated.txt", "a", encoding="utf-8") as s:
+        for x in xlines:
+            newxlines = []
+            res = json.loads(x)
+            try:
+                for page in res["pages"]:
+                    content = page["text"]["content"]
+
+                    soup = bs4.BeautifulSoup(content, "html.parser")
+                    for st in soup.find_all('p', string=True):
+                        pass
+                        #new_string = translate_text(st.string, 'ru')
+                        #st.string.replace_with(new_string['translatedText'])
+                    newxlines.append({"name": page["name"], "text": str(soup)})
+            except:
                 continue
-        except:
-            continue
+            newxlines = sorted(newxlines, key=lambda x: x['name'])
+            s.write(res["name"])
+            s.write("\n---------------\n")
+            for x in newxlines:
+                s.write(x["name"])
+                s.write("\n---------------\n")
+                s.write(x["text"])
+                s.write("\n---------------\n")
 
-        soup = bs4.BeautifulSoup(content, "html.parser")
-        for st in soup.find_all('p', string=True):
-            new_string = translate_text(st.string, 'ru')
-            st.string.replace_with(new_string['translatedText'])
-
-        newxlines.append({"name": el0["name"], "text": str(soup)}) 
-
-newxlines = sorted(newxlines, key=lambda x: x['name'])
-
-with open("d:\\journal_translated.txt", "w", encoding="utf-8") as s:
-    for x in newxlines:
-        s.write(x["name"])
-        s.write("\n---------------\n")
-        s.write(x["text"])
-        s.write("\n---------------\n")
