@@ -14,7 +14,7 @@ def translate_text(text, target_language, source_language=None):
     return result
 
 filename = "d:\\journal.db"
-types_of_encoding = ["utf8", "cp1252"]
+types_of_encoding = ["utf8"]
 for encoding_type in types_of_encoding:
     with codecs.open(filename, encoding = encoding_type, errors ='replace') as f:
         xlines = f.readlines()
@@ -29,14 +29,16 @@ for encoding_type in types_of_encoding:
                     content = page["text"]["content"]
 
                     soup = bs4.BeautifulSoup(content, "html.parser")
-                    for st in soup.find_all('p', string=True):
-                        pass
-                        #new_string = translate_text(st.string, 'ru')
-                        #st.string.replace_with(new_string['translatedText'])
+                    for st in soup.find_all(string=True):
+                        new_string = translate_text(st.string, 'ru')
+                        st.string.replace_with(new_string['translatedText'])
                     newxlines.append({"name": page["name"], "text": str(soup)})
             except:
                 continue
-            newxlines = sorted(newxlines, key=lambda x: x['name'])
+            #newxlines = sorted(newxlines, key=lambda x: x['name'])
+            s.write("\n---------------\n")
+            s.write("\n---------------\n")
+            s.write("\n---------------\n")
             s.write(res["name"])
             s.write("\n---------------\n")
             for x in newxlines:
